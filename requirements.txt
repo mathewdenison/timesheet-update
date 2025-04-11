@@ -1,5 +1,5 @@
 Flask==2.2.5
 sqlmodel==0.0.8
 google-cloud-pubsub==2.14.0
-timesheet-common-timesheet-mfdenison-hopkinsep==0.0.2
+timesheet-common-timesheet-mfdenison-hopkinsep==0.0.3
 google-cloud-logging>=3.0.0
