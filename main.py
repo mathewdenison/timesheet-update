@@ -2,17 +2,14 @@ import os
 import json
 import logging
 import base64
-import copy
 
 from google.cloud import pubsub_v1
 from google.cloud import logging as cloud_logging
 
-# Import shared code from your published package.
 from timesheet_common_timesheet_mfdenison_hopkinsep.utils.timelog_update_manager import TimeLogUpdateManager
 from timesheet_common_timesheet_mfdenison_hopkinsep.utils.dashboard import send_dashboard_update
 from timesheet_common_timesheet_mfdenison_hopkinsep.serializers import TimeLogSerializer
 
-# Initialize Cloud Logging (logs will go to Google Cloud Logging)
 client = cloud_logging.Client()
 client.setup_logging()
 
@@ -28,16 +25,6 @@ pto_deduction_queue = f"projects/{project_id}/topics/pto_deduction_queue"
 def timelog_update_handler(event, context):
     """
     Cloud Function triggered by a Pub/Sub message to update a TimeLog record.
-
-    Expects a JSON payload (possibly double-encoded) with a structure similar to:
-       {
-         "timelog_id": "<ID>",
-         "data": {
-             "employee": <...>,    // or "employee_id", which will be ensured
-             "pto_hours": <...>,
-             ... (other fields)
-         }
-       }
 
     The function:
       - Decodes and parses the message.
